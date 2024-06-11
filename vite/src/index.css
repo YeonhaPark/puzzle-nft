@@ -1,0 +1,33 @@
+@font-face {
+  font-weight: 100;
+  font-family: "Proto mono";
+  src: url("../public/fonts/ProtoMono-Light.woff2") format("woff2");
+}
+@font-face {
+  font-weight: 300;
+  font-family: "Proto mono";
+  src: url("../public/fonts/ProtoMono-Regular.woff2") format("woff2");
+}
+@font-face {
+  font-weight: 400;
+  font-family: "Proto mono";
+  font-style: normal;
+  src: url("../public/fonts/ProtoMono-Medium.woff2") format("woff2");
+}
+@font-face {
+  font-weight: 500;
+  font-family: "Proto mono";
+  src: url("../public/fonts/ProtoMono-Semibold.woff2") format("woff2");
+}
+@font-face {
+  font-family: "LXGW WenKai Mono TC", monospace;
+  font-weight: 400;
+  font-style: normal;
+}
+body {
+  font-family: "Proto mono", sans-serif format("woff2");
+}
+
+.italic-font {
+  font-family: "LXGW WenKai Mono TC";
+}
