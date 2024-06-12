@@ -2,13 +2,13 @@ import { Box, GridItem, Image } from "@chakra-ui/react";
 import { FC } from "react";
 
 interface PuzzleCardProps {
-  visible: boolean;
+  number: number;
   id: number;
 }
-const PuzzleCard: FC<PuzzleCardProps> = ({ id, visible }) => {
+const PuzzleCard: FC<PuzzleCardProps> = ({ id, number }) => {
   return (
     <GridItem position={"relative"}>
-      {!visible && (
+      {!number && (
         <Box
           pos="absolute"
           top={0}

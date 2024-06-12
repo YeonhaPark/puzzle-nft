@@ -14,7 +14,7 @@ import axios from "axios";
 import PuzzleCard from "../components/PuzzleCard";
 interface ResponseProps {
   metadata: Metadata;
-  visible: boolean;
+  number: number;
   id: number;
 }
 const Home: FC = () => {
@@ -26,22 +26,20 @@ const Home: FC = () => {
       if (!mintContract || !signer) {
         return;
       }
-      const response: boolean[] = await mintContract.checkNfts(signer.address);
+      const response: bigint[] = await mintContract.balanceOfNfts(
+        Array.from({ length: 16 }, () => signer.address)
+      );
       setNfts(
         await Promise.all(
-          response.map(
-            async (v: boolean, i: number): Promise<ResponseProps> => {
-              return {
-                metadata: (
-                  await axios(
-                    `${import.meta.env.VITE_METADATA_URI}${i + 1}.json`
-                  )
-                ).data,
-                id: i,
-                visible: v,
-              };
-            }
-          )
+          response.map(async (v: bigint, i: number): Promise<ResponseProps> => {
+            return {
+              metadata: (
+                await axios(`${import.meta.env.VITE_METADATA_URI}${i + 1}.json`)
+              ).data,
+              id: i,
+              number: Number(v),
+            };
+          })
         )
       );
     } catch (error) {
@@ -51,7 +49,7 @@ const Home: FC = () => {
   const getProgressValue = () => {
     const val =
       nfts.reduce((acc, cur) => {
-        acc += cur.visible ? 1 : 0;
+        acc += cur.number ? 1 : 0;
         return acc;
       }, 0) / 16;
     return val * 100;
@@ -99,7 +97,7 @@ const Home: FC = () => {
         {signer ? (
           <Grid templateColumns={"repeat(4, 1fr)"}>
             {nfts?.map((nft, i) => (
-              <PuzzleCard key={i} id={nft.id} visible={nft.visible} />
+              <PuzzleCard key={i} id={nft.id} number={nft.number} />
             ))}
           </Grid>
         ) : (
