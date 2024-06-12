@@ -13,12 +13,14 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { FC } from "react";
+import { useNavigate } from "react-router-dom";
 interface MintModalProps {
   isOpen: boolean;
   onClose: () => void;
   oceanMetadata: OceanNftMetadata;
 }
 const MintModal: FC<MintModalProps> = ({ isOpen, onClose, oceanMetadata }) => {
+  const navigate = useNavigate();
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
@@ -69,7 +71,14 @@ const MintModal: FC<MintModalProps> = ({ isOpen, onClose, oceanMetadata }) => {
           <Button colorScheme="blue" mr={3} onClick={onClose}>
             Close
           </Button>
-          <Button variant="ghost">Secondary Action</Button>
+          <Button
+            ml={4}
+            colorScheme="white"
+            bgColor={"gray.300"}
+            onClick={() => navigate("/")}
+          >
+            GO HOME
+          </Button>
         </ModalFooter>
       </ModalContent>
     </Modal>
