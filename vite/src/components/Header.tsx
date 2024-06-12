@@ -32,6 +32,10 @@ const navLinks = [
     name: "Sale",
     path: "/sale",
   },
+  {
+    name: "My",
+    path: "/my",
+  },
 ];
 const Header: FC<HeaderProps> = ({ signer, setSigner }) => {
   const navigate = useNavigate();
@@ -41,7 +45,13 @@ const Header: FC<HeaderProps> = ({ signer, setSigner }) => {
     setSigner(null);
   };
   return (
-    <Flex alignItems={"center"} justifyContent={"space-between"} h={20} px={4}>
+    <Flex
+      alignItems={"center"}
+      boxShadow={"0 4px 4px -2px rgba(0, 0, 0, 0.1)"}
+      justifyContent={"space-between"}
+      h={20}
+      px={4}
+    >
       <Flex
         w={40}
         fontSize={20}
