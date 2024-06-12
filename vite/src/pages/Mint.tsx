@@ -58,7 +58,7 @@ const Mint: FC = () => {
       alignItems="center"
     >
       <Text fontSize={[24, 24, 32]} fontWeight={"semibold"} mb={8}>
-        🐬 Create NFTs
+        Create NFTs 🐬
       </Text>
       {signer ? (
         <Flex alignItems={"center"} flexDir={"column"} gap={[4, 4, 8]} mb={16}>
@@ -111,16 +111,15 @@ const Mint: FC = () => {
         </Flex>
       ) : (
         <Flex flexDir={"column"} gap={[4, 4, 8]} alignItems={"center"}>
-          <Text>🐠 Login</Text>
-          <Button bgColor="transparent" onClick={onClickMetamask}>
+          <Button bgColor="white" onClick={onClickMetamask}>
             <Image
               src="/images/metamask.svg"
               alt="Metamask Login"
-              w={10}
+              w={[8, 10]}
               mr={2}
-              h={10}
+              h={[8, 10]}
             />
-            LOGIN
+            Login to Create NFTs
           </Button>
         </Flex>
       )}
