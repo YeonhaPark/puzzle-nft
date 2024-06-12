@@ -7,3 +7,8 @@ interface Metadata {
   image: string;
   description: string;
 }
+
+interface OceanNftMetadata extends Metadata {
+  tokenId: number;
+  amount: number;
+}

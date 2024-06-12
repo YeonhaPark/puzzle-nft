@@ -10,26 +10,32 @@ import {
 import { Dispatch, FC, SetStateAction } from "react";
 
 import { ChevronDownIcon } from "@chakra-ui/icons";
-import { ethers, JsonRpcSigner } from "ethers";
+import { JsonRpcSigner } from "ethers";
 import { useNavigate } from "react-router-dom";
+import useWalletLogin from "../hooks/useWalletLogin";
 
 interface HeaderProps {
   signer: JsonRpcSigner | null;
   setSigner: Dispatch<SetStateAction<JsonRpcSigner | null>>;
 }
 
+const navLinks = [
+  {
+    name: "Home",
+    path: "/",
+  },
+  {
+    name: "Mint",
+    path: "/mint",
+  },
+  {
+    name: "Sale",
+    path: "/sale",
+  },
+];
 const Header: FC<HeaderProps> = ({ signer, setSigner }) => {
   const navigate = useNavigate();
-
-  const onClickMetamask = async () => {
-    try {
-      if (!window.ethereum) return;
-      const provider = new ethers.BrowserProvider(window.ethereum);
-      setSigner(await provider.getSigner());
-    } catch (e) {
-      console.error(e);
-    }
-  };
+  const onClickMetamask = useWalletLogin(setSigner);
 
   const onClickLogout = () => {
     setSigner(null);
@@ -46,34 +52,19 @@ const Header: FC<HeaderProps> = ({ signer, setSigner }) => {
         Save the Ocean
       </Flex>
       <Flex display={["none", "none", "flex"]} gap={8} alignItems={"center"}>
-        <Button
-          h={"fit-content"}
-          padding={"8px 12px"}
-          variant={"link"}
-          textColor={"white"}
-          bgColor="blue.500"
-        >
-          Home
-        </Button>
-        <Button
-          h={"fit-content"}
-          padding={"8px 12px"}
-          variant={"link"}
-          textColor={"white"}
-          bgColor="blue.500"
-        >
-          Mint
-        </Button>
-
-        <Button
-          h={"fit-content"}
-          padding={"8px 12px"}
-          variant={"link"}
-          textColor={"white"}
-          bgColor="blue.500"
-        >
-          Sales
-        </Button>
+        {navLinks.map((nav) => (
+          <Button
+            key={nav.name}
+            h={"fit-content"}
+            padding={"8px 12px"}
+            variant={"link"}
+            textColor={"white"}
+            bgColor="blue.500"
+            onClick={() => navigate(nav.path)}
+          >
+            {nav.name}
+          </Button>
+        ))}
       </Flex>
       <Flex
         display={["none", "none", "flex"]}
@@ -120,7 +111,7 @@ const Header: FC<HeaderProps> = ({ signer, setSigner }) => {
           </MenuButton>
           <MenuList>
             {!signer && (
-              <MenuItem onClick={onClickMetamask}>
+              <MenuItem onClick={() => onClickMetamask()}>
                 <Image
                   mr={2}
                   src="/images/metamask.svg"
@@ -131,9 +122,11 @@ const Header: FC<HeaderProps> = ({ signer, setSigner }) => {
                 METAMASK LOGIN
               </MenuItem>
             )}
-            <MenuItem>Create a Copy</MenuItem>
-            <MenuItem>Mark as Draft</MenuItem>
-            <MenuItem>Delete</MenuItem>
+            {navLinks.map((nav) => (
+              <MenuItem key={nav.name} onClick={() => navigate(nav.path)}>
+                {nav.name}
+              </MenuItem>
+            ))}
             {signer && <MenuItem onClick={onClickLogout}>LOGOUT</MenuItem>}
           </MenuList>
         </Menu>
