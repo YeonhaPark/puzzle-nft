@@ -4,8 +4,8 @@ import App from "./App.tsx";
 import { ChakraProvider, extendTheme } from "@chakra-ui/react";
 const theme = extendTheme({
   fonts: {
-    heading: "Proto mono",
-    body: "Proto mono",
+    heading: `'Proto mono', sans-serif`,
+    body: `'Proto mono', sans-serif`,
   },
 });
 
