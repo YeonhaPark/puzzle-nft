@@ -11,6 +11,7 @@ import { Dispatch, FC, SetStateAction } from "react";
 
 import { ChevronDownIcon } from "@chakra-ui/icons";
 import { ethers, JsonRpcSigner } from "ethers";
+import { useNavigate } from "react-router-dom";
 
 interface HeaderProps {
   signer: JsonRpcSigner | null;
@@ -18,6 +19,8 @@ interface HeaderProps {
 }
 
 const Header: FC<HeaderProps> = ({ signer, setSigner }) => {
+  const navigate = useNavigate();
+
   const onClickMetamask = async () => {
     try {
       if (!window.ethereum) return;
@@ -33,7 +36,13 @@ const Header: FC<HeaderProps> = ({ signer, setSigner }) => {
   };
   return (
     <Flex alignItems={"center"} justifyContent={"space-between"} h={20} px={4}>
-      <Flex w={40} fontSize={20} fontWeight={"semibold"} alignItems={"center"}>
+      <Flex
+        w={40}
+        fontSize={20}
+        onClick={() => navigate("/")}
+        fontWeight={"semibold"}
+        alignItems={"center"}
+      >
         Save the Ocean
       </Flex>
       <Flex display={["none", "none", "flex"]} gap={8} alignItems={"center"}>
