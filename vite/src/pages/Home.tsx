@@ -27,7 +27,7 @@ const Home: FC = () => {
         return;
       }
       const response: bigint[] = await mintContract.balanceOfNfts(
-        Array.from({ length: 16 }, () => signer.address)
+        signer.address
       );
       setNfts(
         await Promise.all(
